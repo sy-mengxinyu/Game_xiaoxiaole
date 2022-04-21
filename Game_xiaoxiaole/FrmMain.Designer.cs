@@ -57,7 +57,7 @@
             this.panelGame.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelGame.Location = new System.Drawing.Point(847, 20);
             this.panelGame.Name = "panelGame";
-            this.panelGame.Size = new System.Drawing.Size(188, 878);
+            this.panelGame.Size = new System.Drawing.Size(188, 906);
             this.panelGame.TabIndex = 1;
             // 
             // btnAboutme
@@ -130,7 +130,7 @@
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(3, 83);
+            this.panel1.Location = new System.Drawing.Point(4, 26);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(447, 322);
             this.panel1.TabIndex = 7;
@@ -186,7 +186,7 @@
             // 
             // FrmMain
             // 
-            this.ClientSize = new System.Drawing.Size(1055, 918);
+            this.ClientSize = new System.Drawing.Size(1055, 946);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);

@@ -110,9 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Block.cs" />
-    <Compile Include="DoubleBufferDataGridView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="FrmAbtMe.cs">
       <SubType>Form</SubType>
     </Compile>

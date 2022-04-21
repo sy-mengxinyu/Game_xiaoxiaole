@@ -49,7 +49,7 @@ namespace WaferDiskPad
             }
             else
             {
-                //backImage = GetBackImage(this, this.Left, this.Top, this.Width, this.Height);
+                backImage = GetBackImage(this, this.Left, this.Top, this.Width, this.Height,Color.White,10);
                 //如果不添加背景图片,会导致背景污染，应该需要调用上转型解决
             }
 
@@ -67,6 +67,7 @@ namespace WaferDiskPad
                     e.CellBounds.Height - 4);
 
                 using (
+                
                     Brush gridBrush = new SolidBrush(this.GridColor),
                     backColorBrush = new SolidBrush(e.CellStyle.BackColor),
                     selectedColorBrush = new SolidBrush(e.CellStyle.SelectionBackColor))
@@ -81,13 +82,15 @@ namespace WaferDiskPad
                         {
                             e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
                         }
-                        if (e.Value != null)
-                        {
-                            e.Graphics.DrawString((String)e.Value, e.CellStyle.Font,
-                                Brushes.White, e.CellBounds.X + 2,
-                                e.CellBounds.Y + 2, StringFormat.GenericDefault);
-                        }
+                    if (e.Value != null)
+                    {
+                        Type type = (e.Value).GetType();
+                        if(type.Name=="String")
+                        e.Graphics.DrawString((String)e.Value, e.CellStyle.Font,
+                            Brushes.White, e.CellBounds.X + 1,
+                            e.CellBounds.Y + 1, StringFormat.GenericDefault);
                     }
+                }
 
                     Rectangle border = e.CellBounds;
                     border.Offset(new Point(-1, -1));
@@ -105,7 +108,7 @@ namespace WaferDiskPad
         public bool BackTransparent { get; set; } = true;
 
         #region 绘制一个基础map的bmp
-        public Bitmap GetBackImage(Control parent, int x, int y, int w, int h,Color color)
+        public Bitmap GetBackImage(Control parent, int x, int y, int w, int h,Color color,int intel_Bin)
         {
             //if (parent.BackgroundImage == null)
             {
@@ -120,8 +123,8 @@ namespace WaferDiskPad
                 Graphics g = Graphics.FromImage(destBitmap);
                 //g.DrawImage(bt, new Rectangle(0, 0, w, h), new Rectangle(x, y, w, h), GraphicsUnit.Pixel);
                 g.FillEllipse (new SolidBrush(color), new Rectangle(x, y, w, h));
-                g.DrawEllipse(new Pen(Color.BlueViolet, (float)(2)), new Rectangle(x, y, w, h));
-                g.DrawEllipse(new Pen(Color.BlueViolet, (float)(2)), new Rectangle(x-10, y-10, w+20, h+20));
+                //g.DrawEllipse(new Pen(Color.BlueViolet, (float)(2)), new Rectangle(x - intel_Bin, y - intel_Bin, w + intel_Bin * 2, h + intel_Bin * 2));
+                g.DrawEllipse(new Pen(Color.Red, (float)(2)), new Rectangle(x, y, w, h));
 
                 //bt.Dispose();
                 g.Dispose();
