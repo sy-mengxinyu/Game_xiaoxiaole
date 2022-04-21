@@ -45,6 +45,7 @@
     <Compile Include="DoubleBufferDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="enumColor.cs" />
     <Compile Include="Waferdisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
