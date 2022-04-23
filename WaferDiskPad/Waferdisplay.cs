@@ -89,6 +89,36 @@ namespace WaferDiskPad
             //displayView.Controls.Add(dataGridView);
 
             this.Controls.Add(dataGridView);
+            dataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+
+            //displayView.Show();
+            int Rowlist = _Row + 4;
+            int Collist = _Col + 4;
+            if (Rowlist <= 1 || Collist <= 1)
+            {
+                MessageBox.Show("Please Input Correct digital !");
+            }
+            //dataGridView.RowPostPaint += dgv_detail_RowPostPaint;
+
+            #region 设置datagridview的显示特性。包括cell的颜色、大小
+
+            //dataGridView.RowCount = Rowlist;
+            //去掉DataGridView最左边的空白列
+            dataGridView.RowHeadersVisible = false;
+            dataGridView.ColumnHeadersVisible = false;
+            //不显示出dataGridView1的最后一行空白
+            //dataGridView.AllowUserToAddRows = false;
+            //userControlNoBlink1.Anchor = AnchorStyles.Left|AnchorStyles.Top|AnchorStyles.Right|AnchorStyles.Bottom;
+            //userControlNoBlink1.Dock = DockStyle.Fill;
+
+            dataGridView.RowHeadersWidth = calculation_Lenght_Mod(Collist, _Row_panel);
+            dataGridView.ColumnHeadersHeight = calculation_Lenght_Mod(Rowlist, _Col_panel);
+            dataGridView.RowHeadersWidth = 4;
+            dataGridView.ColumnHeadersHeight = 4;
+            dataGridView.RowTemplate.Height = (_Col_panel / Rowlist);
+            int ColumnWight = (_Row_panel / Collist);
+            #endregion
 
             dataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
