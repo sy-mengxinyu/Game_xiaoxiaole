@@ -62,41 +62,41 @@ namespace WaferDiskPad
         {
             if (e.RowIndex == -1 || e.ColumnIndex == -1) return;
 
-                Rectangle newRect = new Rectangle(e.CellBounds.X + 1,
-                    e.CellBounds.Y + 1, e.CellBounds.Width - 4,
-                    e.CellBounds.Height - 4);
+            Rectangle newRect = new Rectangle(e.CellBounds.X + 1,
+                e.CellBounds.Y + 1, e.CellBounds.Width - 3,
+                e.CellBounds.Height - 3);
 
-                using (
-                
-                    Brush gridBrush = new SolidBrush(this.GridColor),
-                    backColorBrush = new SolidBrush(e.CellStyle.BackColor),
-                    selectedColorBrush = new SolidBrush(e.CellStyle.SelectionBackColor))
+            using (
+
+                Brush gridBrush = new SolidBrush(this.GridColor),
+                backColorBrush = new SolidBrush(e.CellStyle.BackColor),
+                selectedColorBrush = new SolidBrush(e.CellStyle.SelectionBackColor))
+            {
+                using (Pen gridLinePen = new Pen(gridBrush))
                 {
-                    using (Pen gridLinePen = new Pen(gridBrush))
+                    if (this.Rows[e.RowIndex].Selected)
                     {
-                        if (this.Rows[e.RowIndex].Selected)
-                        {
-                            e.Graphics.FillRectangle(selectedColorBrush, e.CellBounds);
-                        }
-                        else
-                        {
-                            e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
-                        }
+                        e.Graphics.FillRectangle(selectedColorBrush, e.CellBounds);
+                    }
+                    else
+                    {
+                        e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+                    }
                     if (e.Value != null)
                     {
                         Type type = (e.Value).GetType();
-                        if(type.Name=="String")
-                        e.Graphics.DrawString((String)e.Value, e.CellStyle.Font,
-                            Brushes.White, e.CellBounds.X + 1,
-                            e.CellBounds.Y + 1, StringFormat.GenericDefault);
+                        if (type.Name == "String")
+                            e.Graphics.DrawString((String)e.Value, e.CellStyle.Font,
+                                Brushes.White, e.CellBounds.X + 1,
+                                e.CellBounds.Y + 1, StringFormat.GenericDefault);
                     }
                 }
 
-                    Rectangle border = e.CellBounds;
-                    border.Offset(new Point(-1, -1));
-                    e.Graphics.DrawRectangle(new Pen(gridBrush), border);
-                    e.Handled = true;
-                }
+                Rectangle border = e.CellBounds;
+                border.Offset(new Point(-1, -1));
+                e.Graphics.DrawRectangle(new Pen(gridBrush), border);
+                e.Handled = true;
+            }
 
         }
         //原文链接：https://blog.csdn.net/zcn596785154/article/details/120158807

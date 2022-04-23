@@ -20,7 +20,7 @@ namespace Game_xiaoxiaole
         //DoubleBufferDataGridView dataGridView;
         WaferDiskPad.WaferDiskPad waferDiskPad;
         //panel尺寸大小
-        private int _Row_panel = 896, _Col_panel = 896;
+        private int _Row_Weight = 960, _Col_Hight = 960;
         public FrmMain()
         {
             InitializeComponent();
@@ -35,8 +35,8 @@ namespace Game_xiaoxiaole
             _game.gameChanged += _game_gameChanged;
             _game.Eliminate();
             this.GameForArea.Invalidate();
-                panel1.Size = new Size(_Row_panel, _Col_panel);
-            
+            panel1.Size = new Size(_Row_Weight, _Col_Hight);
+
         }
         #region 消消乐主要程序
         private void _game_gameChanged()
@@ -125,49 +125,43 @@ namespace Game_xiaoxiaole
 
         #endregion
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            waferDiskPad.Tabledisplay.Rows[4][waferDiskPad._Col + 3] = Convert.ToInt32(DateTime.Now.Millisecond) ;
+            waferDiskPad.dataGridView[3,4].Style.BackColor = Color.FromArgb(128, 255, 255- Convert.ToInt32(DateTime.Now.Millisecond/4) , Convert.ToInt32(DateTime.Now.Millisecond/4));
+        }
+
         private void btn_Reset_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "" && textBox2.Text == "")
             {
                 return;
             }
-            for (int i = 10; i < 100; i++)
+            // for (int i = 10; i < 100; i++)
             {
-                waferDiskPad = new WaferDiskPad.WaferDiskPad();
-                waferDiskPad.Size = panel1.Size;
-                panel1.Controls.Clear();
-               GC.Collect();
-                //waferDiskPad.Location=new Point(84, 100);
-                waferDiskPad._Col = i;// Convert.ToInt32(textBox1.Text.ToString().Trim());
-                waferDiskPad._Row = i; // Convert.ToInt32(textBox2.Text.ToString().Trim());
-                panel1.Controls.Add(waferDiskPad);
-                System.Threading.Thread.Sleep(200);
-                waferDiskPad.Dispose();
-            }
-            //Form displayView = new Form
-            //{
-            //    Dock = DockStyle.Fill,
-            //    FormBorderStyle = FormBorderStyle.None,
-            //    MaximizeBox = false,
-            //    TopLevel = false
-            //};
-            // private void dgv_Circle_Draw(object sender, DataGridViewRowPostPaintEventArgs e)
-            //{
-            //    DataGridView gridView = (DataGridView)sender;
-            //    Graphics draw_circle = gridView.CreateGraphics();
-            //    //draw_circle.
-            //    Brush brush = new SolidBrush(Color.Red);
-            //    draw_circle.FillEllipse(brush, 0, 0, _Row_panel, _Col_panel);
+                if (panel1.Controls.Contains(waferDiskPad) )       waferDiskPad.Dispose();
 
-            //}
-            /// <summary>
-            /// 可以定义一个可以输出的新数组。
-            /// </summary>
-            /// <param name="x"></param>
-            /// <param name="y"></param>
-            /// <returns></returns>
+                {
+
+                    waferDiskPad = new WaferDiskPad.WaferDiskPad();
+                    waferDiskPad.Size = panel1.Size;
+                    //waferDiskPad.BackColor = Color.FromArgb(64, Color.CadetBlue);
+                    waferDiskPad.Dock = DockStyle.Fill;
+
+                    panel1.Controls.Clear();
+                    GC.Collect();
+                    //waferDiskPad.Location=new Point(84, 100);
+                    //waferDiskPad._Row = i; 
+                    //waferDiskPad._Col = i;
+                    waferDiskPad._Row = Convert.ToInt32(textBox2.Text.ToString().Trim());
+                    waferDiskPad._Col = Convert.ToInt32(textBox1.Text.ToString().Trim());
+                    panel1.Controls.Add(waferDiskPad);
+                    timer1.Enabled = true;
+                    //System.Threading.Thread.Sleep(800);
+                    //waferDiskPad.Dispose();
+                }
+            }
 
         }
     }
-
 }
