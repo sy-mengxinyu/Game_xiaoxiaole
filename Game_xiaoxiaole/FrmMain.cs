@@ -127,8 +127,8 @@ namespace Game_xiaoxiaole
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            waferDiskPad.Tabledisplay.Rows[4][waferDiskPad._Col + 3] = Convert.ToInt32(DateTime.Now.Millisecond) ;
-            waferDiskPad.dataGridView[3,4].Style.BackColor = Color.FromArgb(128, 255, 255- Convert.ToInt32(DateTime.Now.Millisecond/4) , Convert.ToInt32(DateTime.Now.Millisecond/4));
+            waferDiskPad.Tabledisplay.Rows[4][waferDiskPad.Collist-1] = Convert.ToInt32(DateTime.Now.Millisecond) ;
+            waferDiskPad.dataGridView[3,4].Style.BackColor = Color.FromArgb(255, 255, 255- Convert.ToInt32(DateTime.Now.Millisecond/4) , Convert.ToInt32(DateTime.Now.Millisecond/4));
         }
 
         private void btn_Reset_Click(object sender, EventArgs e)
@@ -137,7 +137,7 @@ namespace Game_xiaoxiaole
             {
                 return;
             }
-            // for (int i = 10; i < 100; i++)
+             //for (int i = 20; i < 100; i++)
             {
                 if (panel1.Controls.Contains(waferDiskPad) )       waferDiskPad.Dispose();
 
@@ -145,7 +145,7 @@ namespace Game_xiaoxiaole
 
                     waferDiskPad = new WaferDiskPad.WaferDiskPad();
                     waferDiskPad.Size = panel1.Size;
-                    //waferDiskPad.BackColor = Color.FromArgb(64, Color.CadetBlue);
+                    waferDiskPad.BackColor = Color.FromArgb(64, Color.CadetBlue);
                     waferDiskPad.Dock = DockStyle.Fill;
 
                     panel1.Controls.Clear();
@@ -157,7 +157,10 @@ namespace Game_xiaoxiaole
                     waferDiskPad._Col = Convert.ToInt32(textBox1.Text.ToString().Trim());
                     panel1.Controls.Add(waferDiskPad);
                     timer1.Enabled = true;
-                    //System.Threading.Thread.Sleep(800);
+                    waferDiskPad.dataGridView[4, 4].Style.BackColor = Color.FromArgb(255, 255, 255, Convert.ToInt32(DateTime.Now.Millisecond / 4));
+                    waferDiskPad.dataGridView[4, 5].Style.BackColor = Color.FromArgb(255, 255, 255, Convert.ToInt32(DateTime.Now.Millisecond / 4));
+
+                    //System.Threading.Thread.Sleep(1800);
                     //waferDiskPad.Dispose();
                 }
             }

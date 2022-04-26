@@ -49,7 +49,7 @@ namespace WaferDiskPad
             }
             else
             {
-                backImage = GetBackImage(this, this.Left, this.Top, this.Width, this.Height,Color.White,10);
+                backImage = GetBackImage(this, this.Left, this.Top, this.Width, this.Height, Color.White, 10);
                 //如果不添加背景图片,会导致背景污染，应该需要调用上转型解决
             }
 
@@ -57,49 +57,53 @@ namespace WaferDiskPad
 
         //原文链接：https://blog.csdn.net/zcn596785154/article/details/120158807
         #endregion
-        #region OnCellPainting
-        protected override void OnCellPainting(DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.RowIndex == -1 || e.ColumnIndex == -1) return;
 
-            Rectangle newRect = new Rectangle(e.CellBounds.X + 1,
-                e.CellBounds.Y + 1, e.CellBounds.Width - 3,
-                e.CellBounds.Height - 3);
 
-            using (
+        #region OnCellPainting        
+        //protected override void OnCellPainting(DataGridViewCellPaintingEventArgs e)
+        //{
+        //    if (e.RowIndex == -1 || e.ColumnIndex == -1) return;
 
-                Brush gridBrush = new SolidBrush(this.GridColor),
-                backColorBrush = new SolidBrush(e.CellStyle.BackColor),
-                selectedColorBrush = new SolidBrush(e.CellStyle.SelectionBackColor))
-            {
-                using (Pen gridLinePen = new Pen(gridBrush))
-                {
-                    if (this.Rows[e.RowIndex].Selected)
-                    {
-                        e.Graphics.FillRectangle(selectedColorBrush, e.CellBounds);
-                    }
-                    else
-                    {
-                        e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
-                    }
-                    if (e.Value != null)
-                    {
-                        Type type = (e.Value).GetType();
-                        if (type.Name == "String")
-                            e.Graphics.DrawString((String)e.Value, e.CellStyle.Font,
-                                Brushes.White, e.CellBounds.X + 1,
-                                e.CellBounds.Y + 1, StringFormat.GenericDefault);
-                    }
-                }
+        //    //Rectangle newRect = new Rectangle(e.CellBounds.X + 1,
+        //    //    e.CellBounds.Y + 1, e.CellBounds.Width - 3,
+        //    //    e.CellBounds.Height - 3);
 
-                Rectangle border = e.CellBounds;
-                border.Offset(new Point(-1, -1));
-                e.Graphics.DrawRectangle(new Pen(gridBrush), border);
-                e.Handled = true;
-            }
+        //    using (
 
-        }
-        //原文链接：https://blog.csdn.net/zcn596785154/article/details/120158807
+        //        Brush gridBrush = new SolidBrush(this.GridColor),
+        //        backColorBrush = new SolidBrush(e.CellStyle.BackColor),
+        //        selectedColorBrush = new SolidBrush(e.CellStyle.SelectionBackColor))
+        //    {
+        //        using (Pen gridLinePen = new Pen(gridBrush))
+        //        {
+        //            if (this.Rows[e.RowIndex].Selected)
+        //            {
+        //                e.Graphics.FillRectangle(selectedColorBrush, e.CellBounds);
+        //            }
+        //            else
+        //            {
+        //                e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+        //            }
+        //            if (e.Value != null)
+        //            {
+        //                Type type = (e.Value).GetType();
+        //                if (type.Name == "String")
+        //                    e.Graphics.DrawString((String)e.Value, e.CellStyle.Font,
+        //                        Brushes.White, e.CellBounds.X + 1,
+        //                        e.CellBounds.Y + 1, StringFormat.GenericDefault);
+        //            }
+        //        }
+        //        {
+        //            //Rectangle border = e.CellBounds;
+        //            //border.Offset(new Point(0, 0));
+        //            //e.Graphics.DrawRectangle(new Pen(gridBrush), border);
+        //        }
+        //        e.Handled = true;
+        //    }
+
+        //}
+        ////原文链接：https://blog.csdn.net/zcn596785154/article/details/120158807
+
         #endregion
 
 
@@ -108,7 +112,7 @@ namespace WaferDiskPad
         public bool BackTransparent { get; set; } = true;
 
         #region 绘制一个基础map的bmp
-        public Bitmap GetBackImage(Control parent, int x, int y, int w, int h,Color color,int intel_Bin)
+        public Bitmap GetBackImage(Control parent, int x, int y, int w, int h, Color color, int intel_Bin)
         {
             //if (parent.BackgroundImage == null)
             {
@@ -122,7 +126,7 @@ namespace WaferDiskPad
                 Bitmap destBitmap = new Bitmap(parent.Width, parent.Height);
                 Graphics g = Graphics.FromImage(destBitmap);
                 //g.DrawImage(bt, new Rectangle(0, 0, w, h), new Rectangle(x, y, w, h), GraphicsUnit.Pixel);
-                g.FillEllipse (new SolidBrush(color), new Rectangle(x, y, w, h));
+                g.FillEllipse(new SolidBrush(color), new Rectangle(x, y, w, h));
                 //g.DrawEllipse(new Pen(Color.BlueViolet, (float)(2)), new Rectangle(x - intel_Bin, y - intel_Bin, w + intel_Bin * 2, h + intel_Bin * 2));
                 g.DrawEllipse(new Pen(Color.Red, (float)(2)), new Rectangle(x, y, w, h));
 
