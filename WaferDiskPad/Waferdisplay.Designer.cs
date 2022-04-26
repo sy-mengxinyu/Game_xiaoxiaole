@@ -28,20 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.删除行ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.删除一行ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.删除一列ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
+            this.noChipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setOKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.noChipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.当前单元ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.failureChipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bin0ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bin1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bin2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.其他ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除行ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.当前单元ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除一行ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除一列ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,27 +53,11 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(125, 70);
             // 
-            // 删除行ToolStripMenuItem
+            // noChipToolStripMenuItem
             // 
-            this.删除行ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.当前单元ToolStripMenuItem,
-            this.删除一行ToolStripMenuItem,
-            this.删除一列ToolStripMenuItem});
-            this.删除行ToolStripMenuItem.Name = "删除行ToolStripMenuItem";
-            this.删除行ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.删除行ToolStripMenuItem.Text = "删除";
-            // 
-            // 删除一行ToolStripMenuItem
-            // 
-            this.删除一行ToolStripMenuItem.Name = "删除一行ToolStripMenuItem";
-            this.删除一行ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.删除一行ToolStripMenuItem.Text = "删除一行";
-            // 
-            // 删除一列ToolStripMenuItem
-            // 
-            this.删除一列ToolStripMenuItem.Name = "删除一列ToolStripMenuItem";
-            this.删除一列ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.删除一列ToolStripMenuItem.Text = "删除一列";
+            this.noChipToolStripMenuItem.Name = "noChipToolStripMenuItem";
+            this.noChipToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.noChipToolStripMenuItem.Text = "No Chip";
             // 
             // 设置ToolStripMenuItem
             // 
@@ -88,20 +71,8 @@
             // setOKToolStripMenuItem
             // 
             this.setOKToolStripMenuItem.Name = "setOKToolStripMenuItem";
-            this.setOKToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setOKToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.setOKToolStripMenuItem.Text = "Normal Chip";
-            // 
-            // noChipToolStripMenuItem
-            // 
-            this.noChipToolStripMenuItem.Name = "noChipToolStripMenuItem";
-            this.noChipToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.noChipToolStripMenuItem.Text = "No Chip";
-            // 
-            // 当前单元ToolStripMenuItem
-            // 
-            this.当前单元ToolStripMenuItem.Name = "当前单元ToolStripMenuItem";
-            this.当前单元ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.当前单元ToolStripMenuItem.Text = "当前单元";
             // 
             // failureChipToolStripMenuItem
             // 
@@ -111,39 +82,68 @@
             this.bin2ToolStripMenuItem,
             this.其他ToolStripMenuItem});
             this.failureChipToolStripMenuItem.Name = "failureChipToolStripMenuItem";
-            this.failureChipToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.failureChipToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.failureChipToolStripMenuItem.Text = "Failure Chip";
             // 
             // bin0ToolStripMenuItem
             // 
             this.bin0ToolStripMenuItem.Name = "bin0ToolStripMenuItem";
-            this.bin0ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bin0ToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.bin0ToolStripMenuItem.Text = "Bin 0";
             // 
             // bin1ToolStripMenuItem
             // 
             this.bin1ToolStripMenuItem.Name = "bin1ToolStripMenuItem";
-            this.bin1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bin1ToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.bin1ToolStripMenuItem.Text = "Bin 1";
             // 
             // bin2ToolStripMenuItem
             // 
             this.bin2ToolStripMenuItem.Name = "bin2ToolStripMenuItem";
-            this.bin2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bin2ToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.bin2ToolStripMenuItem.Text = "Bin 2";
             // 
             // 其他ToolStripMenuItem
             // 
             this.其他ToolStripMenuItem.Name = "其他ToolStripMenuItem";
-            this.其他ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.其他ToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.其他ToolStripMenuItem.Text = "其他";
+            // 
+            // 删除行ToolStripMenuItem
+            // 
+            this.删除行ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.当前单元ToolStripMenuItem,
+            this.删除一行ToolStripMenuItem,
+            this.删除一列ToolStripMenuItem});
+            this.删除行ToolStripMenuItem.Name = "删除行ToolStripMenuItem";
+            this.删除行ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.删除行ToolStripMenuItem.Text = "删除";
+            // 
+            // 当前单元ToolStripMenuItem
+            // 
+            this.当前单元ToolStripMenuItem.Name = "当前单元ToolStripMenuItem";
+            this.当前单元ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.当前单元ToolStripMenuItem.Text = "当前单元";
+            // 
+            // 删除一行ToolStripMenuItem
+            // 
+            this.删除一行ToolStripMenuItem.Name = "删除一行ToolStripMenuItem";
+            this.删除一行ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.删除一行ToolStripMenuItem.Text = "删除一行";
+            // 
+            // 删除一列ToolStripMenuItem
+            // 
+            this.删除一列ToolStripMenuItem.Name = "删除一列ToolStripMenuItem";
+            this.删除一列ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.删除一列ToolStripMenuItem.Text = "删除一列";
             // 
             // WaferDiskPad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Name = "WaferDiskPad";
-            this.Size = new System.Drawing.Size(800, 450);
+            this.Size = new System.Drawing.Size(292, 181);
             this.Load += new System.EventHandler(this.WaferDiskPad_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);

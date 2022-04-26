@@ -46,6 +46,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="enumColor.cs" />
+    <Compile Include="GetGridBmp.cs" />
     <Compile Include="Waferdisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>

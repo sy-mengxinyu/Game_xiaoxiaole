@@ -37,12 +37,12 @@ namespace WaferDiskPad
             set { datatablsql = value; }
         }
 
-        public  int RowHight,ColumnWight;
+        public  int RowHight,ColumnWight;   //显示的cell尺寸
         public  int Rowlist, Collist;
 
         //间隔宽度,最小宽度为DPI=2
         //TODO 注意这里是Bin间隙
-        private int _in_Bin = 4;
+        private int _in_Bin = 4;//外延网格数目宽度
         public int _interal_Bin
         {
             get { return _in_Bin; }
@@ -64,8 +64,8 @@ namespace WaferDiskPad
 
         public DoubleBufferDataGridView dataGridView;
         //panel尺寸大小,预留边界
-        private int _Row_panel, _Col_panel, _in_margin = 4;
-        private int unused_Row_weight, unused_Col_hight;
+        private int  _in_margin = 4;//dpi数值
+        private int unused_Col_weight, unused_Row_hight;
         private float X = 1024;
         private float Y = 788;
         Image BackguangImage;
@@ -78,7 +78,6 @@ namespace WaferDiskPad
             InitializeComponent();
             #region 产生两个基本数据datagridview和datatable
 
-            #endregion
             dataGridView = new DoubleBufferDataGridView
             {
                 Dock = DockStyle.Fill,
@@ -86,7 +85,7 @@ namespace WaferDiskPad
                 //DataGridView 的边框线的样式是通过 DataGridView.BorderStyle 属性来设定的
                 BorderStyle = BorderStyle.None,
                 //单元格的边框线的样式是通过 DataGridView.CellBorderStyle 属性来设定的.
-                //CellBorderStyle = DataGridViewCellBorderStyle.None,
+                CellBorderStyle = DataGridViewCellBorderStyle.None,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None,
                 //不显示出dataGridView1的最后一行空白
@@ -102,8 +101,9 @@ namespace WaferDiskPad
                 ColumnHeadersVisible = false,
                 ReadOnly = true,
                 AllowUserToResizeColumns = false,
-
-            };
+                //Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom,
+                
+        };
             //BackguangImage = dataGridView.GetBackImage(this, 0, 0, this.Size.Width, this.Size.Height, Color.FromArgb(64, Color.CadetBlue), 0);
             //this.BackgroundImage = BackgroundImage;
             dataSet = new DataSet();
@@ -113,20 +113,7 @@ namespace WaferDiskPad
             dataSet.Tables.Add(Tabledisplay);
             dataSet.Tables.Add(Sqldatatable);
             BindingSource.DataSource = dataSet.Tables["Dispaly_Bin"];
-        }
-
-        private Size dgv_Size(Control partent, int row, int col)
-        {
-            int _row_weigh, _col_hight,_row,_col;//行高和列宽
-            int _row_left_weigh, _col_left_hight;
-            _row = row;
-            _col = col;
-            _row_weigh = partent.Size.Width / _col;
-            _col_hight = partent.Size.Height / _row;
-            _row_left_weigh= partent.Size .Width- _row_weigh* _col;
-            _col_left_hight = partent.Size .Height- _col_hight* _row;
-
-            return new Size();
+            #endregion
         }
 
         private void WaferDiskPad_Load(object sender, EventArgs e)
@@ -137,26 +124,40 @@ namespace WaferDiskPad
                 MessageBox.Show("Please Input Correct digital !");
                 return;
             }
+            #region 确定datagridview和网格grid尺寸
 
             dataGridView.Size = this.Size;
-            Rowlist = _Row + _in_margin;
-            Collist = _Col + _in_margin;
+            Rowlist = _Row + _in_Bin; //给图表增加边缘网格数目_in_Bin
+            Collist = _Col + _in_Bin;
 
-            unused_Row_weight = (this.Size.Width - _in_margin) / Collist;
-            unused_Col_hight = (this.Size.Height - _in_margin) / Rowlist;
-            //dataGridView.Size = new Size(unused_Row_weight * Collist, unused_Col_hight * Rowlist);
-            //dataGridView.Size.Height =  unused_Col_hight * Rowlist;
-            //dataGridView.Size = this.Size;
-            //dataGridView.Resize += new EventHandler(Main_Resize);
-            //dataGridView.RowPostPaint += dgv_detail_RowPostPaint;
+            unused_Col_weight = (this.Size.Width - _in_margin) / Collist;
+            unused_Row_hight = (this.Size.Height - _in_margin) / Rowlist;
+            #endregion
+            #region 设置datagridview的显示特性。包括cell的颜色、大小
 
+            //测设用，没采用
+            dataGridView.RowHeadersWidth = calculation_Lenght_Mod(Collist, this.Size.Width);
+            dataGridView.ColumnHeadersHeight = calculation_Lenght_Mod(Rowlist, this.Size.Height);
+            dataGridView.RowHeadersWidth = 4;
+            dataGridView.ColumnHeadersHeight = 4;
+            RowHight = unused_Row_hight;
+            dataGridView.RowTemplate.Height = RowHight; //增加RowHight是为了预留变化的余地
+            ColumnWight = unused_Col_weight;
+            
+            #endregion
+
+            //dataGridView.Resize += new EventHandler(Main_Resize); //预留框体尺寸自动变化
+            //dataGridView.RowPostPaint += dgv_detail_RowPostPaint; //行表头文字
             dataGridView.CellPainting += dgv_cellPainting;
 
-            //dataGridView.DefaultCellStyle.ForeColor = Color.Red;
+            this.Controls.Add(dataGridView);
+            #region 设定背景与颜色
             dataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.DefaultCellStyle.BackColor = Color.FromArgb(64, Color.LightBlue);
+            dataGridView.GridColor = Color.LightBlue ;
+            dataGridView.BackgroundColor = Color.Black;
+            //dataGridView.DefaultCellStyle.ForeColor = Color.Red;
             //设定背景颜色，fromArgb有多种形式，首位数字位透明项
-            dataGridView.DefaultCellStyle.BackColor = Color.FromArgb(32, Color.Black);
-            dataGridView.GridColor = Color.Black;
             //dataGridView.AdvancedCellBorderStyle.Top = DataGridViewAdvancedCellBorderStyle.OutsetDouble;
             //dataGridView.AdvancedCellBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.OutsetDouble;
             //dataGridView.AdvancedCellBorderStyle.Left = DataGridViewAdvancedCellBorderStyle.OutsetDouble;
@@ -170,6 +171,8 @@ namespace WaferDiskPad
             //dataGridView.RowsDefaultCellStyle.ForeColor = Color.MediumOrchid;
             //displayView.Controls.Add(dataGridView);
 
+            #endregion
+            #region 自调整适应窗口
             //X = dataGridView.Width;
             //Y = dataGridView.Height;
             //float newx = (this.Width) / X;
@@ -179,22 +182,9 @@ namespace WaferDiskPad
             //setControls(newx, newy, this);
             //Main_Resize(new object(), new EventArgs());//x,y
 
-
-            #region 设置datagridview的显示特性。包括cell的颜色、大小
-
-            //userControlNoBlink1.Anchor = AnchorStyles.Left|AnchorStyles.Top|AnchorStyles.Right|AnchorStyles.Bottom;
-            //userControlNoBlink1.Dock = DockStyle.Fill;
-            this.Controls.Add(dataGridView);
-
-            dataGridView.RowHeadersWidth = calculation_Lenght_Mod(Collist, this.Size.Width);
-            dataGridView.ColumnHeadersHeight = calculation_Lenght_Mod(Rowlist, this.Size.Height);
-            dataGridView.RowHeadersWidth = 4;
-            dataGridView.ColumnHeadersHeight = 4;
-            RowHight = unused_Col_hight;
-            dataGridView.RowTemplate.Height = RowHight;
-            ColumnWight = unused_Row_weight;
-            
             #endregion
+
+
 
             //dataGridView.double
             //userControlNoBlink1.Controls.Add(dataGridView);
@@ -202,9 +192,9 @@ namespace WaferDiskPad
 
             for (int i = 0; i < Collist - 2; i++)
             {
-                dataGridView.Columns.Add(rowSet(i));
-                DataColumn dataColumn = new DataColumn(Convert.ToString(i), typeof(String));
-                dataColumn.ColumnName = rowSet(i).DataPropertyName;
+                dataGridView.Columns.Add(cloummnSet(i));
+                DataColumn dataColumn = new DataColumn(Convert.ToString(i), typeof(Image));
+                dataColumn.ColumnName = cloummnSet(i).DataPropertyName;
                 Tabledisplay.Columns.Add(dataColumn);
             }
             for (int i = Collist - 2; i < Collist ; i++)
@@ -222,24 +212,30 @@ namespace WaferDiskPad
                 Tabledisplay.Rows.Add(row);
 
             }
-            dataGridView.DataSource = BindingSource;
-            
-            Tabledisplay.Rows[2][Collist-1] = 8;
-            //DataGridViewRow row = new DataGridViewRow();
-            //row.Height= RowHight;            
-            //DataGridViewTextBoxCell[] dataGridViewTextBoxCells = new DataGridViewTextBoxCell[Collist];
-            #region 设定显示数据
+            for (int i = 0; i < Rowlist; i++)
+            {
+                for (int j = 0; j < Collist - 2; j++)
+                {
+                    Tabledisplay.Rows[i][j] = dataGridView.GetGridImage(0,0,ColumnWight,RowHight,dataGridView.BackgroundColor, _in_margin);
 
-            for (int j = 0; j < Rowlist - 3; j += 5)
-            {
-                dataGridView[Collist - 1, j + 2].Value = Convert.ToString(j + 1);
-                dataGridView[Collist - 1, j + 2].Style.BackColor = Color.Orange;
+                }
+
             }
-            for (int j = 0; j < Collist - 4; j += 5)
+            dataGridView.DataSource = BindingSource;
+            #region 设定显示数据
+            for (int j = 0; j < Rowlist - 4; j += 5)
             {
-                dataGridView[j + 2, Rowlist -1].Value = Convert.ToString(j+1);
-                dataGridView[j + 2, Rowlist - 1].Style.BackColor = Color.Orange;
+                Tabledisplay.Rows[ j + 2][Collist - 1] = Convert.ToString(j + 1);
             }
+            Tabledisplay.Rows[Rowlist - 3][Collist - 1] = Convert.ToString(Rowlist - 4);
+
+            //textcolumn数据网格用
+            //for (int j = 0; j < Collist - 4; j += 5)
+            //{
+            //    Tabledisplay.Rows[ Rowlist - 1][j + 2] = Convert.ToString(j + 1);
+            //}
+            //Tabledisplay.Rows[Rowlist - 1][Collist - 3] = Convert.ToString(Collist - 4);
+
             #endregion
 
             Rectangle rectangle = dataGridView.GetCellDisplayRectangle(3, 7, true);
@@ -255,7 +251,7 @@ namespace WaferDiskPad
             int DrowHeight = dataGridView.GetCellDisplayRectangle(Collist - 2, Rowlist - 2, true).Y - DrawY;
 
             BackgroundImage = dataGridView.GetBackImage(dataGridView, ColumnWight * 2, dataGridView.RowTemplate.Height * 2,
-                DrawWidth, DrowHeight, Color.FromArgb(64,Color.DarkGray), 10);
+                DrawWidth, DrowHeight, Color.FromArgb(128,Color.DarkGray), 10);
 
             // BackgroundImage = dataGridView.GetBackImage(dataGridView, ColumnWight * 2, dataGridView.RowTemplate.Height * 2,
             //ColumnWight * (Collist - 4), dataGridView.RowTemplate.Height * (Rowlist - 4), Color.LightGray, 10);
@@ -308,20 +304,20 @@ namespace WaferDiskPad
             if (sender == null | e==null) return;
             if (e.RowIndex == -1 || e.ColumnIndex == -1) return;
             DataGridView dataGridViewsender = (DataGridView)sender;
-            Rectangle newRect = new Rectangle(e.CellBounds.X + 4,
-                e.CellBounds.Y + 4, e.CellBounds.Width - 6,
-                e.CellBounds.Height - 6);
+            Rectangle newRect = new Rectangle(e.CellBounds.X + 3,
+                e.CellBounds.Y + 3, e.CellBounds.Width - 3,
+                e.CellBounds.Height - 3);
 
             using (
                 Brush gridBrush = new SolidBrush(dataGridView.GridColor),
-                backColorBrush = new SolidBrush(Color.FromArgb(128,Color.Black)),
+                backColorBrush = new SolidBrush(dataGridView.BackgroundColor),
                 selectedColorBrush = new SolidBrush(e.CellStyle.SelectionBackColor))
             {
                 //using (Pen gridLinePen = new Pen(gridBrush))
                 {
                     if (dataGridViewsender.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected)
                     {
-                        e.Graphics.FillRectangle(selectedColorBrush, e.CellBounds);
+                        e.Graphics.FillRectangle(selectedColorBrush, newRect);
                     }
                     else
                     {
@@ -332,8 +328,8 @@ namespace WaferDiskPad
                         Type type = (e.Value).GetType();
                         if (type.Name == "String")
                             e.Graphics.DrawString((String)e.Value, e.CellStyle.Font,
-                                Brushes.White, e.CellBounds.X + 1,
-                                e.CellBounds.Y + 1, StringFormat.GenericDefault);
+                                Brushes.White, e.CellBounds.X + 3,
+                                e.CellBounds.Y + 3, StringFormat.GenericDefault);
                     }
                 }
 

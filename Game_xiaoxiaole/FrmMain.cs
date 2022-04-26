@@ -145,9 +145,9 @@ namespace Game_xiaoxiaole
 
                     waferDiskPad = new WaferDiskPad.WaferDiskPad();
                     waferDiskPad.Size = panel1.Size;
-                    waferDiskPad.BackColor = Color.FromArgb(64, Color.CadetBlue);
+                    //waferDiskPad.BackColor = Color.Transparent;
                     waferDiskPad.Dock = DockStyle.Fill;
-
+                    //waferDiskPad.BackgroundImage=waferDiskPad.dataGridView.BackgroundImage;
                     panel1.Controls.Clear();
                     GC.Collect();
                     //waferDiskPad.Location=new Point(84, 100);
@@ -159,6 +159,22 @@ namespace Game_xiaoxiaole
                     timer1.Enabled = true;
                     waferDiskPad.dataGridView[4, 4].Style.BackColor = Color.FromArgb(255, 255, 255, Convert.ToInt32(DateTime.Now.Millisecond / 4));
                     waferDiskPad.dataGridView[4, 5].Style.BackColor = Color.FromArgb(255, 255, 255, Convert.ToInt32(DateTime.Now.Millisecond / 4));
+                    //waferDiskPad.dataGridView[14, 15].Style.BackColor = Color.FromArgb(255, 255, 255, Convert.ToInt32(DateTime.Now.Millisecond / 4));
+                    #region 设定显示数据,醒目橘黄色标记
+
+                    for (int j = 0; j < waferDiskPad.Rowlist - 4; j += 5)
+                    {                        
+                            waferDiskPad.dataGridView[waferDiskPad.Collist - 1,j + 2].Style.BackColor = Color.Orange;
+                    }
+                    waferDiskPad.dataGridView[waferDiskPad.Collist - 1,waferDiskPad.Rowlist - 3].Style.BackColor = Color.Orange;
+
+                    for (int j = 0; j < waferDiskPad.Collist - 4; j += 5)
+                    {
+                       waferDiskPad.dataGridView[ j + 2,waferDiskPad.Rowlist - 1].Style.BackColor = Color.Orange;
+                    }
+                    waferDiskPad.dataGridView[waferDiskPad.Collist - 3, waferDiskPad.Rowlist - 1].Style.BackColor = Color.Orange;
+
+                    #endregion
 
                     //System.Threading.Thread.Sleep(1800);
                     //waferDiskPad.Dispose();

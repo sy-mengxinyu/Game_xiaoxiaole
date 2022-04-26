@@ -64,9 +64,9 @@ namespace WaferDiskPad
         //{
         //    if (e.RowIndex == -1 || e.ColumnIndex == -1) return;
 
-        //    //Rectangle newRect = new Rectangle(e.CellBounds.X + 1,
-        //    //    e.CellBounds.Y + 1, e.CellBounds.Width - 3,
-        //    //    e.CellBounds.Height - 3);
+        //    Rectangle newRect = new Rectangle(e.CellBounds.X + 2,
+        //        e.CellBounds.Y + 2, e.CellBounds.Width - 4,
+        //        e.CellBounds.Height - 4);
 
         //    using (
 
@@ -82,7 +82,7 @@ namespace WaferDiskPad
         //            }
         //            else
         //            {
-        //                e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+        //                e.Graphics.FillRectangle(backColorBrush, newRect);
         //            }
         //            if (e.Value != null)
         //            {
@@ -132,10 +132,33 @@ namespace WaferDiskPad
 
                 //bt.Dispose();
                 g.Dispose();
+                //destBitmap.Save("@\\ikj.bmp");
                 return destBitmap;
             }
             //else
             //return null;
+        }
+
+        public Bitmap GetGridImage(int x, int y, int w, int h, Color color, int intel_Bin)
+        {
+            int margin_small = intel_Bin * 2;//边缘距离
+            int m = intel_Bin ;                 //有个边缘距离
+            using (Brush brush = new SolidBrush(color))
+            {
+                Bitmap destBitmap = new Bitmap(w, h);
+                Graphics g = Graphics.FromImage(destBitmap);
+                //g.DrawImage(bt, new Rectangle(0, 0, w, h), new Rectangle(x, y, w, h), GraphicsUnit.Pixel);
+                //g.FillEllipse(new SolidBrush(color), new Rectangle(x, y, w, h));
+                //g.DrawEllipse(new Pen(Color.BlueViolet, (float)(2)), new Rectangle(x - intel_Bin, y - intel_Bin, w + intel_Bin * 2, h + intel_Bin * 2));
+                //g.DrawEllipse(new Pen(Color.Red, (float)(2)), new Rectangle(x, y, w, h));
+                g.FillRectangle(brush, new Rectangle(x + m, y + m, w - m, h - m));
+
+                //bt.Dispose();
+                g.Dispose();
+                //destBitmap.Save("@\\ikj.bmp");
+                return destBitmap;
+
+            }
         }
 
         #endregion
